@@ -14,6 +14,11 @@ type Students struct {
 	Students []Student
 }
 
+//Shuffle randomizes the order of the students
+func (s Students) Shuffle(){
+	Shuffle(s.Students)
+}
+
 //GetCards testing
 func (s Students) GetCards() []flashcards.Card {
 	var cards []flashcards.Card
@@ -103,6 +108,6 @@ func main(){
 	//PrintGroups(students, 4)
 	fmt.Println(RandomStudent(students))
 
-	flashcards.FlashcardApp(students)
+	flashcards.FlashcardApp(students, true) //true == shuffle cards
 
 }
