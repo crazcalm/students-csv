@@ -16,14 +16,14 @@ type Students struct {
 
 //Shuffle randomizes the order of the students
 func (s Students) Shuffle(){
-	Shuffle(s.Students)
+	Shuffle(s)
 }
 
 //GetCards testing
 func (s Students) GetCards() []flashcards.Card {
 	var cards []flashcards.Card
 	for _, item := range s.Students{
-		cards = append(cards, flashcards.Card{item.GetFront(), item.GetBack(), item.GetHint()})
+		cards = append(cards, flashcards.Card{item.GetFront(), item.GetBack(), item.GetHint(), false})
 	}
 	return cards
 }
@@ -57,16 +57,16 @@ func init() {
 }
 
 //Shuffle Randomizes the ordering of students
-func Shuffle(s []Student){
-	numOfStudents := len(s)
+func Shuffle(s Students){
+	numOfStudents := len(s.Students)
 	var tempt Student
 	var swapIndex int
 
-	for index := range s {
+	for index := range s.Students {
 		swapIndex = rand.Intn(numOfStudents)
-		tempt = s[index]
-		s[index] = s[swapIndex]
-		s[swapIndex] = tempt
+		tempt = s.Students[index]
+		s.Students[index] = s.Students[swapIndex]
+		s.Students[swapIndex] = tempt
 	}
 }
 
@@ -91,7 +91,7 @@ func PrintGroups(s []Student, numOfGroups int){
 }
 
 //RandomStudent selects a student at random
-func RandomStudent(s Students) Student {
+func RandomStudent(s *Students) Student {
 	numOfStudents := len(s.Students)
 	randNum := rand.Intn(numOfStudents)
 	return s.Students[randNum]
@@ -100,14 +100,14 @@ func RandomStudent(s Students) Student {
 func main(){
 	var students Students
 	csvtag.Load(csvtag.Config{
-		Path: "/home/crazcalm/Documents/PeaceCorps/School/jiqiren161/names.csv",
+		Path: "/home/crazcalm/Downloads/School/jiqiren161/names.csv",
 		Dest: &students.Students,
 	})
 	//Shuffle(students)
 
-	//PrintGroups(students, 4)
-	fmt.Println(RandomStudent(students))
+	//PrintGroups(students.Students, 4)
+	//fmt.Println(RandomStudent(&students))
 
-	flashcards.FlashcardApp(students, true) //true == shuffle cards
+	flashcards.FlashcardApp(&students, true) //true == shuffle cards
 
 }
