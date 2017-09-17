@@ -7,7 +7,11 @@ import (
 	"time"
 	"math"
 	"github.com/crazcalm/flash-cards/cards"
+	"flag"
 )
+
+var csvFile = flag.String("f", "", "file: path to csv file")
+var shuffle = flag.Bool("s", false, "Shuffle the cards")
 
 //Students testing
 type Students struct {
@@ -98,9 +102,12 @@ func RandomStudent(s *Students) Student {
 }
 
 func main(){
+	//Turn on the commandline arguments
+	flag.Parse()
+
 	var students Students
 	csvtag.Load(csvtag.Config{
-		Path: "/home/crazcalm/Downloads/School/jiqiren161/names.csv",
+		Path: *csvFile,
 		Dest: &students.Students,
 	})
 	//Shuffle(students)
@@ -110,6 +117,6 @@ func main(){
 
 	cards := flashcards.Cards{students.GetCards()}
 
-	flashcards.FlashcardApp(cards, true) //true == shuffle cards
+	flashcards.FlashcardApp(cards, *shuffle) //true == shuffle cards
 
 }
