@@ -108,6 +108,8 @@ func main(){
 	//PrintGroups(students.Students, 4)
 	//fmt.Println(RandomStudent(&students))
 
-	flashcards.FlashcardApp(&students, true) //true == shuffle cards
+	cards := flashcards.Cards{students.GetCards()}
+
+	flashcards.FlashcardApp(cards, true) //true == shuffle cards
 
 }
