@@ -8,6 +8,7 @@ import (
 	"math"
 	"github.com/crazcalm/flash-cards/cards"
 	"flag"
+	"github.com/crazcalm/students-csv/src"
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
@@ -15,7 +16,7 @@ var shuffle = flag.Bool("s", false, "Shuffle the cards")
 
 //Students testing
 type Students struct {
-	Students []Student
+	Students []students.Student
 }
 
 //Shuffle randomizes the order of the students
@@ -32,29 +33,6 @@ func (s Students) GetCards() []flashcards.Card {
 	return cards
 }
 
-//Student struct to hold student information
-type Student struct {
-	ChineseName		string `csv:"chinese_name"`
-	Pinyin			string `csv:"pinyin"`
-	EnglishName		string `csv:"english_name"`
-	StudentID		string `csv:"student_id"`
-}
-
-//GetFront used as the front of the flashcard
-func (s Student) GetFront() string {
-	return s.ChineseName
-}
-
-//GetBack used as the Back for the flashcard
-func (s Student) GetBack() string {
-	return s.Pinyin
-}
-
-//GetHint used as the hint for the flashcard
-func (s Student) GetHint() string {
-	return s.EnglishName
-}
-
 func init() {
 	// Seedning the random generator
 	rand.Seed(time.Now().UnixNano())
@@ -63,7 +41,7 @@ func init() {
 //Shuffle Randomizes the ordering of students
 func Shuffle(s Students){
 	numOfStudents := len(s.Students)
-	var tempt Student
+	var tempt students.Student
 	var swapIndex int
 
 	for index := range s.Students {
@@ -75,7 +53,7 @@ func Shuffle(s Students){
 }
 
 //PrintGroups used to organize the students into groups
-func PrintGroups(s []Student, numOfGroups int){
+func PrintGroups(s []students.Student, numOfGroups int){
 		numOfPeopleInGroups := math.Ceil(float64(len(s)) / float64(numOfGroups))
 	
 		//count is used for the internal loop
@@ -95,7 +73,7 @@ func PrintGroups(s []Student, numOfGroups int){
 }
 
 //RandomStudent selects a student at random
-func RandomStudent(s *Students) Student {
+func RandomStudent(s *Students) students.Student {
 	numOfStudents := len(s.Students)
 	randNum := rand.Intn(numOfStudents)
 	return s.Students[randNum]
