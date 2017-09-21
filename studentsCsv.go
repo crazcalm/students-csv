@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/artonge/go-csv-tag"
 	"math/rand"
-	"time"
 	"math"
 	"github.com/crazcalm/flash-cards/cards"
 	"flag"
@@ -14,6 +13,7 @@ import (
 var csvFile = flag.String("f", "", "file: path to csv file")
 var shuffle = flag.Bool("s", false, "Shuffle the cards")
 
+/*
 //Students testing
 type Students struct {
 	Students []students.Student
@@ -32,7 +32,9 @@ func (s Students) GetCards() []flashcards.Card {
 	}
 	return cards
 }
+*/
 
+/*
 func init() {
 	// Seedning the random generator
 	rand.Seed(time.Now().UnixNano())
@@ -51,6 +53,7 @@ func Shuffle(s Students){
 		s.Students[swapIndex] = tempt
 	}
 }
+*/
 
 //PrintGroups used to organize the students into groups
 func PrintGroups(s []students.Student, numOfGroups int){
@@ -73,7 +76,7 @@ func PrintGroups(s []students.Student, numOfGroups int){
 }
 
 //RandomStudent selects a student at random
-func RandomStudent(s *Students) students.Student {
+func RandomStudent(s *students.Students) students.Student {
 	numOfStudents := len(s.Students)
 	randNum := rand.Intn(numOfStudents)
 	return s.Students[randNum]
@@ -83,7 +86,7 @@ func main(){
 	//Turn on the commandline arguments
 	flag.Parse()
 
-	var students Students
+	var students students.Students
 	csvtag.Load(csvtag.Config{
 		Path: *csvFile,
 		Dest: &students.Students,
