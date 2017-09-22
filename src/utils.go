@@ -34,17 +34,20 @@ func RandomStudent(s *Students) Student {
 }
 
 //PrintGroups used to organize the students into groups
-func PrintGroups(s []Student, numOfGroups int){
-		numOfPeopleInGroups := math.Ceil(float64(len(s)) / float64(numOfGroups))
+func PrintGroups(s Students, numOfGroups int){
+		//Shuffle the students
+		Shuffle(s)
+
+		numOfPeopleInGroups := math.Ceil(float64(len(s.Students)) / float64(numOfGroups))
 	
 		//count is used for the internal loop
 		var count int
 	
 		for i := 1; i <= numOfGroups; i++ {
 			fmt.Printf("Group %d:\n", i)
-			for count < len(s) {
+			for count < len(s.Students) {
 				fmt.Print(count, " ")
-				fmt.Println(s[count])
+				fmt.Println(s.Students[count])
 				count++
 				if count > 0 && math.Mod(float64(count), float64(numOfPeopleInGroups)) == 0 {
 					break

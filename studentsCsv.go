@@ -29,6 +29,6 @@ func main(){
 	if *groups == 0{
 		flashcards.FlashcardApp(cards, *shuffle) //true == shuffle cards
 	} else {
-		students.PrintGroups(ss.Students, *groups)
+		students.PrintGroups(ss, *groups)
 	}
 }
