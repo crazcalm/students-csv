@@ -9,22 +9,26 @@ import (
 
 var csvFile = flag.String("f", "", "file: path to csv file")
 var shuffle = flag.Bool("s", false, "Shuffle the cards")
+var groups = flag.Int("g", 0, "Groups the students")
 
 func main(){
 	//Turn on the commandline arguments
 	flag.Parse()
 
-	var students students.Students
+	var ss students.Students
 	csvtag.Load(csvtag.Config{
 		Path: *csvFile,
-		Dest: &students.Students,
+		Dest: &ss.Students,
 	})
 
 	//PrintGroups(students.Students, 4)
 	//fmt.Println(RandomStudent(&students))
 
-	cards := flashcards.Cards{students.GetCards()}
+	cards := flashcards.Cards{ss.GetCards()}
 
-	flashcards.FlashcardApp(cards, *shuffle) //true == shuffle cards
-
+	if *groups == 0{
+		flashcards.FlashcardApp(cards, *shuffle) //true == shuffle cards
+	} else {
+		students.PrintGroups(ss.Students, *groups)
+	}
 }
