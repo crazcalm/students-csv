@@ -5,11 +5,13 @@ import (
 	"github.com/crazcalm/flash-cards/cards"
 	"flag"
 	"github.com/crazcalm/students-csv/src"
+	"fmt"
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
 var shuffle = flag.Bool("s", false, "Shuffle the cards")
 var groups = flag.Int("g", 0, "Groups the students")
+var randomStudent = flag.Bool("r", false, "Prints random student")
 
 func main(){
 	//Turn on the commandline arguments
@@ -21,14 +23,15 @@ func main(){
 		Dest: &ss.Students,
 	})
 
-	//PrintGroups(students.Students, 4)
 	//fmt.Println(RandomStudent(&students))
 
 	cards := flashcards.Cards{ss.GetCards()}
 
-	if *groups == 0{
-		flashcards.FlashcardApp(cards, *shuffle) //true == shuffle cards
-	} else {
+	if *randomStudent == true {
+		fmt.Println(students.RandomStudent(ss))
+	} else if *groups != 0 {
 		students.PrintGroups(ss, *groups)
+	} else {
+		flashcards.FlashcardApp(cards, *shuffle)
 	}
 }

@@ -27,7 +27,7 @@ func Shuffle(s Students){
 }
 
 //RandomStudent selects a student at random
-func RandomStudent(s *Students) Student {
+func RandomStudent(s Students) Student {
 	numOfStudents := len(s.Students)
 	randNum := rand.Intn(numOfStudents)
 	return s.Students[randNum]
