@@ -6,6 +6,7 @@ import (
 	"flag"
 	"github.com/crazcalm/students-csv/src"
 	"fmt"
+	"log"
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
@@ -17,13 +18,17 @@ func main(){
 	//Turn on the commandline arguments
 	flag.Parse()
 
+	//Basic error handling for flags
+	if *csvFile == "" {
+		err := fmt.Errorf("No csv file was passed into the program")
+		log.Fatalf("%v\n", err)
+	}
+
 	var ss students.Students
 	csvtag.Load(csvtag.Config{
 		Path: *csvFile,
 		Dest: &ss.Students,
 	})
-
-	//fmt.Println(RandomStudent(&students))
 
 	cards := flashcards.Cards{ss.GetCards()}
 
