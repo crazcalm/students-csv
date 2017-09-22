@@ -1,8 +1,10 @@
 package students
 
 import (
+	"math"
 	"math/rand"
 	"time"
+	"fmt"
 )
 
 func init() {
@@ -22,4 +24,31 @@ func Shuffle(s Students){
 		s.Students[index] = s.Students[swapIndex]
 		s.Students[swapIndex] = tempt
 	}
+}
+
+//RandomStudent selects a student at random
+func RandomStudent(s *Students) Student {
+	numOfStudents := len(s.Students)
+	randNum := rand.Intn(numOfStudents)
+	return s.Students[randNum]
+}
+
+//PrintGroups used to organize the students into groups
+func PrintGroups(s []Student, numOfGroups int){
+		numOfPeopleInGroups := math.Ceil(float64(len(s)) / float64(numOfGroups))
+	
+		//count is used for the internal loop
+		var count int
+	
+		for i := 1; i <= numOfGroups; i++ {
+			fmt.Printf("Group %d:\n", i)
+			for count < len(s) {
+				fmt.Print(count, " ")
+				fmt.Println(s[count])
+				count++
+				if count > 0 && math.Mod(float64(count), float64(numOfPeopleInGroups)) == 0 {
+					break
+				}
+			}
+		}
 }
