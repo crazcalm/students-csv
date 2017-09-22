@@ -1,11 +1,26 @@
 package students
 
+import (
+	"fmt"
+)
+
 //Student struct to hold student information
 type Student struct {
 	ChineseName		string `csv:"chinese_name"`
 	Pinyin			string `csv:"pinyin"`
 	EnglishName		string `csv:"english_name"`
 	StudentID		string `csv:"student_id"`
+}
+
+//Stringer used for stadnard print function
+func (s Student) String() string {
+	var result string
+		if s.EnglishName == "" {
+			result = fmt.Sprintf("%s (%s)", s.ChineseName, s.Pinyin)
+		} else {
+			result = fmt.Sprintf("%s (%s) -- %s", s.ChineseName, s.Pinyin, s.EnglishName)
+		}
+	return result
 }
 
 //GetFront used as the front of the flashcard
