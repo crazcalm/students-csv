@@ -25,10 +25,13 @@ func main(){
 	}
 
 	var ss students.Students
-	csvtag.Load(csvtag.Config{
-		Path: *csvFile,
-		Dest: &ss.Students,
-	})
+	err := csvtag.Load(csvtag.Config{
+			Path: *csvFile,
+			Dest: &ss.Students,
+		})
+	if err != nil {
+		log.Fatalf("%v\n", err)
+	}
 
 	cards := flashcards.Cards{ss.GetCards()}
 
