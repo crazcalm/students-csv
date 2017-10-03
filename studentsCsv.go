@@ -1,12 +1,13 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"github.com/artonge/go-csv-tag"
 	"github.com/crazcalm/flash-cards/cards"
-	"flag"
 	"github.com/crazcalm/students-csv/src"
-	"fmt"
 	"log"
+	"os"
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
@@ -14,7 +15,7 @@ var shuffle = flag.Bool("s", false, "Shuffle the cards")
 var groups = flag.Int("g", 0, "Groups the students")
 var randomStudent = flag.Bool("r", false, "Prints random student")
 
-func main(){
+func main() {
 	//Turn on the commandline arguments
 	flag.Parse()
 
@@ -26,9 +27,9 @@ func main(){
 
 	var ss students.Students
 	err := csvtag.Load(csvtag.Config{
-			Path: *csvFile,
-			Dest: &ss.Students,
-		})
+		Path: *csvFile,
+		Dest: &ss.Students,
+	})
 	if err != nil {
 		log.Fatalf("%v\n", err)
 	}
@@ -38,7 +39,8 @@ func main(){
 	if *randomStudent == true {
 		fmt.Println(students.RandomStudent(ss))
 	} else if *groups != 0 {
-		students.PrintGroups(ss, *groups)
+
+		students.PrintGroups(ss, *groups, os.Stdout, *shuffle)
 	} else {
 		flashcards.FlashcardApp(cards, *shuffle)
 	}
