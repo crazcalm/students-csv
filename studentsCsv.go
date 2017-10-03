@@ -14,6 +14,7 @@ var csvFile = flag.String("f", "", "file: path to csv file")
 var shuffle = flag.Bool("s", false, "Shuffle the cards")
 var groups = flag.Int("g", 0, "Groups the students")
 var randomStudent = flag.Bool("r", false, "Prints random student")
+var attendance = flag.Bool("a", false, "Take attendace")
 
 func main() {
 	//Turn on the commandline arguments
@@ -41,6 +42,8 @@ func main() {
 	} else if *groups != 0 {
 
 		students.PrintGroups(ss, *groups, os.Stdout, *shuffle)
+	} else if *attendance == true {
+		students.Attendance(ss)
 	} else {
 		flashcards.FlashcardApp(cards, *shuffle)
 	}
