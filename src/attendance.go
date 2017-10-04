@@ -5,7 +5,7 @@ import (
 	"strings"
 	"bufio"
 	"os"
-	"github.com/crazcalm/go-csv-tag"
+	"github.com/artonge/go-csv-tag"
 	"github.com/crazcalm/flash-cards/cards"
 )
 
