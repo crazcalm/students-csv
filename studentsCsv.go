@@ -15,6 +15,7 @@ var shuffle = flag.Bool("s", false, "Shuffle the cards")
 var groups = flag.Int("g", 0, "Groups the students")
 var randomStudent = flag.Bool("r", false, "Prints random student")
 var attendance = flag.Bool("a", false, "Take attendace")
+var output = flag.String("o", ".", "The directory where the files will be created")
 
 func main() {
 	//Turn on the commandline arguments
@@ -43,7 +44,7 @@ func main() {
 
 		students.PrintGroups(ss, *groups, os.Stdout, *shuffle)
 	} else if *attendance == true {
-		students.Attendance(ss)
+		students.Attendance(ss, *output)
 	} else {
 		flashcards.FlashcardApp(cards, *shuffle)
 	}
