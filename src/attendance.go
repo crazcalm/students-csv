@@ -32,14 +32,6 @@ type AbsentStudent struct {
 	Excuse      string `csv:"excuse"`
 }
 
-func createFile(fileName string) *os.File {
-	file, err := os.Create(fileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return file
-}
-
 func createFileName(suffix string) string {
 	date := time.Now()
 	return fmt.Sprintf("%d-%d-%d_%s", date.Year(), date.Month(), date.Day(), suffix)
@@ -54,6 +46,10 @@ func Attendance(ss Students, dir string) {
 	input := bufio.NewScanner(os.Stdin)
 
 	for _, s := range ss.Students {
+		//Clear the screen before we start
+		flashcards.Clear()
+
+		//Start basic program and interface
 		fmt.Printf("Student: %v\n\n", s)
 		fmt.Printf("(p)resent and (a)bsent: ")
 
@@ -90,14 +86,18 @@ func Attendance(ss Students, dir string) {
 
 	//Csv Files
 	presentFileName := filepath.Join(dir, createFileName(PresentFileName))
-	presentFile := createFile(presentFileName)
-
 	absentFileName := filepath.Join(dir, createFileName(AbsentFileName))
-	absentFile := createFile(absentFileName)
 
 	//Writing to csv files
-	csvtag.Dump(present, presentFile)
-	csvtag.Dump(absent, absentFile)
+	err := csvtag.DumpToFile(present, presentFileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = csvtag.DumpToFile(absent, absentFileName)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	//Let the user know that the program has finished running
 	fmt.Println("The program has finished running")
