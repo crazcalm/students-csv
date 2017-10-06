@@ -8,6 +8,7 @@ import (
 	"github.com/crazcalm/students-csv/src"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
@@ -27,11 +28,24 @@ func main() {
 		log.Fatalf("%v\n", err)
 	}
 
+	//Check to see of that file exists...
+	info, err := os.Stat(*csvFile)
+	if err != nil {
+		log.Fatalf("%v\n", err)
+	}
+
+	//Make sure that file is not a dir
+	if info.IsDir() == true {
+		log.Fatal("This is not a file, but a directory")
+	}
+
 	var ss students.Students
-	err := csvtag.Load(csvtag.Config{
+	err = csvtag.Load(csvtag.Config{
 		Path: *csvFile,
 		Dest: &ss.Students,
 	})
+
+	//Make sure csvtag did not throw an error
 	if err != nil {
 		log.Fatalf("%v\n", err)
 	}
@@ -44,6 +58,18 @@ func main() {
 
 		students.PrintGroups(ss, *groups, os.Stdout, *shuffle)
 	} else if *attendance == true {
+
+		//Check to see if the file exists
+		info, err = os.Stat(filepath.Clean(*output))
+		if err != nil {
+			log.Fatalf("%v\n", err)
+		}
+
+		//Ensure that output is a directory
+		if info.IsDir() != true {
+			log.Fatal("Output needs to be a directory")
+		}
+	
 		students.Attendance(ss, *output)
 	} else {
 		flashcards.FlashcardApp(cards, *shuffle)
