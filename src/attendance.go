@@ -89,14 +89,18 @@ func Attendance(ss Students, dir string) {
 	absentFileName := filepath.Join(dir, createFileName(AbsentFileName))
 
 	//Writing to csv files
-	err := csvtag.DumpToFile(present, presentFileName)
-	if err != nil {
-		log.Fatal(err)
+	if len(present) > 0 {
+		err := csvtag.DumpToFile(present, presentFileName)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
-	err = csvtag.DumpToFile(absent, absentFileName)
-	if err != nil {
-		log.Fatal(err)
+	if len(absent) > 0 {
+		err := csvtag.DumpToFile(absent, absentFileName)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	//Let the user know that the program has finished running
