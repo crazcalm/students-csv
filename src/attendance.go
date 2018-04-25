@@ -3,13 +3,15 @@ package students
 import (
 	"bufio"
 	"fmt"
-	"github.com/artonge/go-csv-tag"
-	"github.com/crazcalm/flash-cards/cards"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/artonge/go-csv-tag"
+
+	"github.com/crazcalm/flash-cards/cards"
 )
 
 const (

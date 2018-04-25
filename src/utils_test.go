@@ -2,10 +2,11 @@ package students
 
 import (
 	"bytes"
-	"github.com/artonge/go-csv-tag"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/artonge/go-csv-tag"
 )
 
 const (

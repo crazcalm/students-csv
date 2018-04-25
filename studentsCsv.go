@@ -3,12 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/artonge/go-csv-tag"
-	"github.com/crazcalm/flash-cards/cards"
-	"github.com/crazcalm/students-csv/src"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/artonge/go-csv-tag"
+
+	"github.com/crazcalm/flash-cards/cards"
+	"github.com/crazcalm/students-csv/src"
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
@@ -50,7 +52,7 @@ func main() {
 		log.Fatalf("%v\n", err)
 	}
 
-	cards := flashcards.Cards{ss.GetCards()}
+	cards := flashcards.Cards{Cards: ss.GetCards()}
 
 	if *randomStudent {
 		fmt.Println(students.RandomStudent(ss))
