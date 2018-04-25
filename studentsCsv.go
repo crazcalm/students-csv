@@ -14,10 +14,10 @@ import (
 )
 
 var csvFile = flag.String("f", "", "file: path to csv file")
-var shuffle = flag.Bool("s", false, "Shuffle the cards")
+var shuffle = flag.Bool("s", false, "Shuffle the students")
 var groups = flag.Int("g", 0, "Groups the students")
 var randomStudent = flag.Bool("r", false, "Prints random student")
-var attendance = flag.Bool("a", false, "Take attendace")
+var attendance = flag.Bool("a", false, "Take attendance")
 var output = flag.String("o", ".", "The directory where the files will be created")
 
 func main() {
