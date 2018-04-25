@@ -37,7 +37,7 @@ func RandomStudent(s Students) Student {
 //PrintGroups used to organize the students into groups
 func PrintGroups(s Students, numOfGroups int, w io.Writer, shuffle bool) {
 	//Shuffle the students
-	if shuffle == true {
+	if shuffle {
 		Shuffle(s)
 	}
 
@@ -52,7 +52,7 @@ func PrintGroups(s Students, numOfGroups int, w io.Writer, shuffle bool) {
 			fmt.Fprint(w, fmt.Sprintf("%d ", count))
 			fmt.Fprintln(w, s.Students[count])
 			count++
-			if count > 0 && math.Mod(float64(count), float64(numOfPeopleInGroups)) == 0 {
+			if count > 0 && math.Mod(float64(count), numOfPeopleInGroups) == 0 {
 				break
 			}
 		}

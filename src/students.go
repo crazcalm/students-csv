@@ -18,7 +18,7 @@ func (s Students) Shuffle() {
 func (s Students) GetCards() []flashcards.Card {
 	var cards []flashcards.Card
 	for _, item := range s.Students {
-		cards = append(cards, flashcards.Card{item.GetFront(), item.GetBack(), item.GetHint(), false})
+		cards = append(cards, flashcards.Card{Front: item.GetFront(), Back: item.GetBack(), Hint: item.GetHint(), Flipped: false})
 	}
 	return cards
 }

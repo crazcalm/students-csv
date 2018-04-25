@@ -41,7 +41,7 @@ func TestShuffle(t *testing.T) {
 	s2 := getTestData()
 	Shuffle(s2)
 
-	if compareStudentsSlice(s1.Students, s2.Students) == true {
+	if compareStudentsSlice(s1.Students, s2.Students) {
 		t.Fail()
 	}
 }
@@ -76,7 +76,7 @@ func TestPrintGroups(t *testing.T) {
 
 	PrintGroups(ss, g, b, shuffle)
 
-	if strings.Contains(b.String(), GROUP5) != true {
+	if !strings.Contains(b.String(), GROUP5) {
 		t.Fail()
 	}
 }

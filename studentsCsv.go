@@ -35,7 +35,7 @@ func main() {
 	}
 
 	//Make sure that file is not a dir
-	if info.IsDir() == true {
+	if info.IsDir() {
 		log.Fatal("This is not a file, but a directory")
 	}
 
@@ -52,12 +52,12 @@ func main() {
 
 	cards := flashcards.Cards{ss.GetCards()}
 
-	if *randomStudent == true {
+	if *randomStudent {
 		fmt.Println(students.RandomStudent(ss))
 	} else if *groups != 0 {
 
 		students.PrintGroups(ss, *groups, os.Stdout, *shuffle)
-	} else if *attendance == true {
+	} else if *attendance {
 
 		//Check to see if the file exists
 		info, err = os.Stat(filepath.Clean(*output))
@@ -66,10 +66,10 @@ func main() {
 		}
 
 		//Ensure that output is a directory
-		if info.IsDir() != true {
+		if !info.IsDir() {
 			log.Fatal("Output needs to be a directory")
 		}
-	
+
 		students.Attendance(ss, *output)
 	} else {
 		flashcards.FlashcardApp(cards, *shuffle)
